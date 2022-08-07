@@ -14,6 +14,10 @@ router.get('/api/events', (req, res) => {
 router.get('/api/instances', (req, res) => {
     Instance.find()
         .then(dbInstances => {
+            dbInstances.forEach(instance => {
+                let difference = instance.endTime - instance.startTime
+                console.log(`seconds elapsed = ${Math.floor(difference / 1000)}`);
+            })
             res.json(dbInstances)
         })
         .catch(error => {
@@ -31,6 +35,13 @@ router.get('/api/current-timer', (req, res) => {
         })
 })
 
+router.post('/api/new-event', ({ body }, res) => {
+    Event.create(body)
+        .then(dbEvent => res.json(dbEvent))
+        .catch(error => res.json(error))
+})
+
+// Start the timer
 router.put('/api/stop-timer', (req, res) => {
     const body = { running: false, endTime: Date.now() }
     Instance.updateOne({ running: true }, body)
@@ -38,21 +49,10 @@ router.put('/api/stop-timer', (req, res) => {
         .catch(error => res.json(error))
 })
 
-router.post('/api/new-event', ({ body }, res) => {
-    Event.create(body)
-        .then(dbEvent => res.json(dbEvent))
-        .catch(error => res.json(error))
-})
-
-router.post('/api/new-instance', ({ body }, res) => {
+// End the timer
+router.post('/api/start-timer', ({ body }, res) => {
     Instance.create(body)
         .then(dbInstance => res.json(dbInstance))
-        .catch(error => res.json(error))
-})
-
-router.delete('/api/just-delete-it', (req, res) => {
-    Instance.deleteOne({ running: true })
-        .then(deleted => res.json(deleted))
         .catch(error => res.json(error))
 })
 
