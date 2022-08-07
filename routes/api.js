@@ -15,8 +15,8 @@ router.get('/api/instances', (req, res) => {
     Instance.find()
         .then(dbInstances => {
             dbInstances.forEach(instance => {
-                let difference = instance.endTime - instance.startTime
-                console.log(`seconds elapsed = ${Math.floor(difference / 1000)}`);
+                let time = instance.endTime - instance.startTime
+                console.log(`${instance.name} = ${Math.floor(time / 1000)} seconds`);
             })
             res.json(dbInstances)
         })
