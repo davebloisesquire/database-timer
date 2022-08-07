@@ -6,8 +6,12 @@ const eventSchema = new Schema({
         required: true,
         unique: true,
         trim: true
-    }
-}, { timestamps: true })
+    },
+    // instances: [{
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Class'
+    // }]
+})
 
 const Event = model('Event', eventSchema)
 
