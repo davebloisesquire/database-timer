@@ -50,7 +50,7 @@ function populateTimers(data) {
     let timers = ""
     data.forEach(timer => {
         let time = Date.parse(timer.endTime) - Date.parse(timer.startTime)
-        timers += `<p>${timer.name} = ${Math.floor(time / 1000)} seconds</p>`
+        timers += `<li>${timer.name} = ${Math.floor(time / 1000)} seconds</li>`
     })
     document.getElementById("old-timers").innerHTML = timers
 }
