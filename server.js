@@ -13,8 +13,11 @@ mongoose.connect(
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+app.use(express.static("public"))
 
-app.get('/', (req, res) => res.send("Dave was here"))
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname + "./public/index.html"));
+});
 
 // routes
 app.use(require("./routes/api.js"));
