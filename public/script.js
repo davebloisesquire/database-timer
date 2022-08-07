@@ -49,8 +49,8 @@ function stopTimer() {
 function populateTimers(data) {
     let timers = ""
     data.forEach(timer => {
-        let time = timer.endTime - timer.startTime
-        timers += `<p>${timer.name} = ${timer.endTime} seconds</p>`
+        let time = Date.parse(timer.endTime) - Date.parse(timer.startTime)
+        timers += `<p>${timer.name} = ${Math.floor(time / 1000)} seconds</p>`
     })
     document.getElementById("old-timers").innerHTML = timers
 }
